@@ -1,0 +1,2 @@
+Particles hanging in a space, viewed with a lens blur effect. Colors change in day/night cycle. Device motion sensors are used to move and rotate the view.
+This app may not run well on low-end devices.
