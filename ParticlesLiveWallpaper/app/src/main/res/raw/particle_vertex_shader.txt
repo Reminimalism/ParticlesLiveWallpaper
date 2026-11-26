@@ -1,0 +1,26 @@
+uniform mat4 View;
+uniform mat4 Projection;
+uniform vec2 MinSize;
+uniform vec2 SizeDiff;
+
+attribute vec3 Position;
+attribute vec3 VertexInfo; // xy: UV in { -1, 1 }, z: type index in [ 0, 10 )
+
+varying vec2 UV;
+varying float TypeIndex;
+varying float Intensity;
+
+void main()
+{
+    vec4 pos = Projection * View * vec4(Position, 1.0);
+    float size_coeff = abs(pos.z / pos.w);
+    size_coeff *= float(size_coeff < 1.0); // Fix white frames on Mali GPUs
+    size_coeff = size_coeff * size_coeff;
+    vec2 size = MinSize + size_coeff * SizeDiff;
+    pos.xy = (pos.xy / pos.w + VertexInfo.xy * size); // * (1.0 + (pos.w - 1.0) * 0.2);
+    UV = VertexInfo.xy;
+    TypeIndex = VertexInfo.z;
+    float intensity = 1.0 - size_coeff;
+    Intensity = intensity * intensity;
+    gl_Position = pos;
+}

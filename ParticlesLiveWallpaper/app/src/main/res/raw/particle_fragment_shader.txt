@@ -1,0 +1,15 @@
+precision highp float;
+
+uniform highp vec3 Colors[10];
+
+varying vec2 UV;
+varying float TypeIndex;
+varying float Intensity;
+
+void main()
+{
+    float r2 = UV.x * UV.x + UV.y * UV.y;
+    float intensity = max(0.0, min(1.0, (1.0 - r2) * 2.0)) * Intensity;
+    intensity = log(intensity + 1.0);
+    gl_FragColor = vec4(intensity * Colors[int(TypeIndex)], 1.0);
+}
