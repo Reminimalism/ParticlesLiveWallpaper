@@ -1,4 +1,4 @@
-# Materials Live Wallpaper
+# Particles Live Wallpaper
 
 Particles hanging in a space, viewed with a lens blur effect. Colors change in day/night cycle. Device motion sensors are used to move and rotate the view.
 
